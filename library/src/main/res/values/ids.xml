@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="status_error_image" type="id" />
+    <item name="status_error_button" type="id" />
+    <item name="status_error_message" type="id" />
+
+    <item name="status_blank_image" type="id" />
+    <item name="status_blank_button" type="id" />
+    <item name="status_blank_message" type="id" />
+
+    <item name="stauts_load_message" type="id" />
+
+</resources>

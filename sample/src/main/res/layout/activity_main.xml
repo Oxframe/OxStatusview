@@ -18,10 +18,10 @@
             android:text="模拟请求" />
 
         <Button
-            android:id="@+id/loading"
+            android:id="@+id/error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading" />
+            android:text="错误页面" />
 
     </LinearLayout>
 

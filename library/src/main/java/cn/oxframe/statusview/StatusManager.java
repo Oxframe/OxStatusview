@@ -4,8 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-public class StatusManager {
+class StatusManager {
 
     private StatusView mSstatusView;
 
@@ -19,14 +18,11 @@ public class StatusManager {
         LAYOUT_LOADING_ID = layoutLoadingResID;
     }
 
-    public static StatusManager onCreate(View view) {
-        return new StatusManager(view);
-    }
+    public static StatusManager onCreate(View iView, OxStatusListener iListener) {
+        StatusManager manager = new StatusManager();
 
-    private StatusManager(View iView) {
         Context context = iView.getContext();
         ViewGroup iParentView = (ViewGroup) iView.getParent();
-
         // 将原控件从父控件中删除
         iParentView.removeView(iView);
         // 创建一个新的状态控件，控件使用属性是原控件的属性
@@ -35,17 +31,43 @@ public class StatusManager {
         ViewGroup.LayoutParams iParams = iView.getLayoutParams();
         iParentView.addView(iStatusView, index, iParams);
         // 将原控件作为内容页面添加到新的状态控件页面中
-
         iStatusView.setContentView(iView);
-        iStatusView.setErrorView(LAYOUT_ERROR_ID);
-        iStatusView.setBlankView(LAYOUT_BLANK_ID);
+
+        return manager.initListener(iStatusView, iListener);
+    }
+
+    private StatusManager initListener(StatusView iStatusView, final OxStatusListener iListener) {
+        View mErrorView = iStatusView.setErrorView(LAYOUT_ERROR_ID);
+        View mErrorBtn = mErrorView.findViewById(R.id.status_error_button);
+        if (null != mErrorBtn) {
+            mErrorBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iListener.onErrorClick(v);
+                }
+            });
+        }
+
+        View mBlankView = iStatusView.setBlankView(LAYOUT_BLANK_ID);
+        View mBlankBtn = mBlankView.findViewById(R.id.status_blank_button);
+        if (null != mBlankBtn) {
+            mBlankBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iListener.onBlankClick(v);
+                }
+            });
+        }
+
         iStatusView.setLoadingView(LAYOUT_LOADING_ID);
 
         mSstatusView = iStatusView;
-        //初始状态:loading进去
-        mSstatusView.showLoading();
+        return this;
     }
 
+    public View iStatusView() {
+        return mSstatusView;
+    }
 
     public void showError() {
         mSstatusView.showError();
@@ -62,6 +84,5 @@ public class StatusManager {
     public void showLoading() {
         mSstatusView.showLoading();
     }
-
 
 }

@@ -1,6 +1,7 @@
 package cn.oxframe.statusview;
 
 import android.view.View;
+import android.widget.TextView;
 
 public class OxStatusManager {
 
@@ -10,8 +11,8 @@ public class OxStatusManager {
         StatusManager.initStatusView(layoutErrorResID, layoutBlankResID, layoutLoadingResID);
     }
 
-    public static OxStatusManager init(View view) {
-        StatusManager iManager = StatusManager.onCreate(view);
+    public static OxStatusManager init(View view, OxStatusListener listener) {
+        StatusManager iManager = StatusManager.onCreate(view, listener);
         OxStatusManager iStatusManager = new OxStatusManager();
         iStatusManager.mStatusManager = iManager;
         return iStatusManager;
@@ -39,6 +40,28 @@ public class OxStatusManager {
         if (mStatusManager != null) {
             mStatusManager.showBlank();
         }
+    }
+
+    public void showError(String message, String button) {
+        View view = mStatusManager.iStatusView();
+        TextView textView = view.findViewById(R.id.status_error_message);
+        if (null != textView) textView.setText(message);
+        View btnView = view.findViewById(R.id.status_error_button);
+        if (btnView instanceof TextView) {
+            ((TextView) btnView).setText(button);
+        }
+        mStatusManager.showError();
+    }
+
+    public void showBlank(String message, String button) {
+        View view = mStatusManager.iStatusView();
+        TextView textView = view.findViewById(R.id.status_blank_message);
+        if (null != textView) textView.setText(message);
+        View btnView = view.findViewById(R.id.status_blank_button);
+        if (btnView instanceof TextView) {
+            ((TextView) btnView).setText(button);
+        }
+        mStatusManager.showBlank();
     }
 
 }

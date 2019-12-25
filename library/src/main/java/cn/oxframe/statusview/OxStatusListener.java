@@ -1,5 +1,15 @@
 package cn.oxframe.statusview;
 
-public abstract class OxStatusListener extends StatusListener {
+import android.view.View;
+
+public abstract class OxStatusListener {
+
+    public void onErrorClick(View view) {
+
+    }
+
+    public void onBlankClick(View view) {
+
+    }
 
 }
