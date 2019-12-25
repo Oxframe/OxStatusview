@@ -47,7 +47,6 @@ public class StatusView extends FrameLayout {
         if (isMainThread()) {
             showView(mErrorView);
         } else {
-
             post(new Runnable() {
                 @Override
                 public void run() {
@@ -116,7 +115,6 @@ public class StatusView extends FrameLayout {
             if (mContentView != null) mContentView.setVisibility(GONE);
             if (mLoadingView != null) mLoadingView.setVisibility(GONE);
         } else if (view == mBlankView) {// 空白页面
-            Log.e("dasdasdsad","---------------------------");
             mBlankView.setVisibility(VISIBLE);
             if (mErrorView != null) mErrorView.setVisibility(GONE);
             if (mContentView != null) mContentView.setVisibility(GONE);
@@ -162,10 +160,6 @@ public class StatusView extends FrameLayout {
         addView(view);
         mBlankView = view;
         return mBlankView;
-    }
-
-    public View setContentView(int layoutId) {
-        return setContentView(mInflater.inflate(layoutId, this, false));
     }
 
     public View setContentView(View view) {
